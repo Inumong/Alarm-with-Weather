@@ -42,6 +42,8 @@ function help() {
 	echo "  -d, --delete (-i)           Delete the alert identified by id"
 	echo "  -l, --list   ([-i])         List alert(s)                    "
 	echo "      --daemon                Start the alert daemon           "
+  echo "      --weather               Show weather                     "
+	echo "      --daemon                Start the alert daemon           "
 	echo "                                                               "
 	echo "Parameters                                                     "
 	echo "  -t, --timespec TIMESPEC     Date/time specification at which "
@@ -189,6 +191,73 @@ function daemon() {
 	done
 }
 
+#here is sunrise-sunset
+function alarmSun() {
+	#!/bin/bash 
+	#if [ -z "$A_ID" ]; then
+	#	error "No alarm ID specified."
+		#return
+	#fi
+	
+	#TMPFILE=`tempfile`
+	
+	#grep -v "^$A_ID|" $A_FILE > $TMPFILE 2>/dev/null 
+	#mv $TMPFILE $A_FILE
+
+	#if [ "$SILENT" == "" ]; then
+	#	echo "Deleted alert (ID $A_ID)"
+	#fi
+#sunrise-sunset
+# Author: Lubos Rendek web@linuxconfig.org
+
+# First obtain a location code from: https://weather.codes/search/
+
+# Insert your location. For example LOXX0001 is a location code for Bratislava, Slovakia
+location="KSXX0037"
+# Obtain sunrise and sunset raw data from weather.com
+sun_times=$( lynx --dump  https://weather.com/weather/today/l/$location | grep "\* Sun" | sed "s/[[:alpha:]]//g;s/*//" )
+# Alternative curl/wget solution. In case you wish to use curl or wget instead of lynx comment the above line and uncomment one of the lines below:
+#sun_times=$( curl -s  https://weather.com/weather/today/l/$location | sed 's/<span/\n/g' | sed 's/<\/span>/\n/g'  | grep -E "dp0-details-sunrise|dp0-details-sunset" | tr -d '\n' | sed 's/>/ /g' | cut -d " " -f 4,8 )
+#sun_times=$( wget -qO-  https://weather.com/weather/today/l/$location | sed 's/<span/\n/g' | sed 's/<\/span>/\n/g'  | grep -E "dp0-details-sunrise|dp0-details-sunset" | tr -d '\n' | sed 's/>/ /g' | cut -d " " -f 4,8 )
+# Extract sunrise and sunset times and convert to 24 hour format
+	echo "Sunrise and Sunset in Seoul"
+sunrise=$(date --date="`echo $sun_times | awk '{ print $1}'` AM" +%R)
+sunset=$(date --date="`echo $sun_times | awk '{ print $2}'` PM" +%R)
+
+
+# Use $sunrise and $sunset variables to fit your needs. Example:
+echo "Sunrise for location $location: $sunrise"
+echo "Sunset for location $location: $sunset".
+}
+
+#here is weather
+function alarmWeather() {
+#!/bin/bash 
+
+echo "weather"
+echo -e "\e[36m###############################################\e[0m"
+toilet -f smblock --filter border:metal "WeaTher Forecast"
+echo -e "\e[36m###############################################\e[0m"
+echo -e "\e[1;31;42m ############ ©Technical Dada ############\e[0m"
+echo -e "\e[1;31mUse Landscape For Mobile Devices\e[0m"
+echo -e "\e[36m###############################################\e[0m"
+echo -e "\e[1;33;4;44m Enter the name of the city you live or near city\e[0m"
+read town
+echo " ">report
+curl wttr.in/$town --connect-timeout 15 -o report -s
+count=$(< "report" wc -l)
+if [ $count -gt 2 ]
+then
+echo $'\n\n\n'
+head -n -1 report
+else
+echo -e "\e[1;31mConnection Timed Out..."
+echo -e "Seems That Your Input is Wrong or Net is Slow\e[0m"
+fi
+rm report >/dev/null 2>&1
+echo 
+
+}
 
 ########################################################################
 # Parse commandline options
@@ -207,6 +276,8 @@ while true ; do
 		-c|--change)   ACT="change";   shift 1 ;;
 		-d|--delete)   ACT="delete";   shift 1 ;;
 		-l|--list)     ACT="list";     shift 1 ;;
+       --sun)      ACT="sun";      shift 1 ;;
+       --weather)  ACT="weather";  shift 1 ;;
 		   --daemon)   ACT="daemon";   shift 1 ;;
 		-t|--timespec) A_TIMESPEC=$2;  shift 2 ;;
 		-m|--message)  A_MESSAGE=$2;   shift 2 ;;
@@ -233,6 +304,8 @@ case "$ACT" in
 	change)  alarmChange ;;
 	delete)  alarmDelete ;;
 	list)    alarmList ;;
+  sun)     alarmSun ;;
+  weather) alarmWeather ;;
 	help)    help ;;
 	daemon)  daemon ;;
 esac
