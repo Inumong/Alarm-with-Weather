@@ -1,4 +1,4 @@
-Alarm
+Alarm with Weather
 =====
 
 About
