@@ -26,9 +26,9 @@
 # - GTK / dialog frontend.
 # - Daemon kill mode
 # - More
-#
+# 
 
-DEFAULT_A_FILE="$HOME/.alarms"
+DEFAULT_A_FILE="log.txt"
 DEFAULT_ACT="help"
 
 function help() {
