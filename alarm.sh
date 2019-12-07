@@ -43,7 +43,7 @@ function help() {
 	echo "  -l, --list   ([-i])         List alert(s)                    "
 	echo "      --daemon                Start the alert daemon           "
   echo "      --weather               Show weather                     "
-	echo "      --daemon                Start the alert daemon           "
+	echo "      --sun                   Show sunrise and sunset           "
 	echo "                                                               "
 	echo "Parameters                                                     "
 	echo "  -t, --timespec TIMESPEC     Date/time specification at which "

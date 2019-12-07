@@ -55,8 +55,9 @@ Below is the output of alarm --help:
 	  -c, --change (-i, -t, -m)   Change the alert identified by id
 	  -d, --delete (-i)           Delete the alert identified by id
 	  -l, --list   ([-i])         List alert(s)                    
-		  --daemon                Start the alert daemon           
-																   
+		  --daemon            Start the alert daemon           
+		  --weather           Show weather
+                  --sun               Show sunrise and sunset														   
 	Parameters                                                     
 	  -t, --timespec TIMESPEC     Date/time specification at which 
 								  the alert should be triggered    
