@@ -1,4 +1,6 @@
 ChangeLog for alarm.sh
+v0.3 [INUMONG] [Sat Dec 7 18:24:30 CET 2019]
+        * add sunrise, sunset, weather
 
 v0.2 [FB] [Sun Jan  8 23:53:56 CET 2006]
 	* No output shown when in daemon mode anymore.
