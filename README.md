@@ -117,6 +117,14 @@ Here is an example of how to change an alert:
 Here is an example of deleting an alert.
 
 	$ alarm -d -i2
+	
+### show sunrise, sunset
+    
+        $ alarm --sun
+	
+## show weather
+
+        $ alarm --weather
 
 Copyright
 ---------
