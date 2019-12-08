@@ -17,14 +17,14 @@ Installation and setup
 
 ### Requirements
 
-Alert requires the following to be installed:
+Alert requires the following to be installed:(X11설치)
 		
 *   X11
 		
-And at least ONE OF THE FOLLOWING programs to be installed:
+And at least ONE OF THE FOLLOWING programs to be installed: (이 프로그램들 중 적어도 하나는 설치해야합니다.)
 
-*   xmessage OR
-*   dialog in combination with a terminal emulator OR
+*   xmessage 
+*   dialog in combination with a terminal emulator 
 *   gdialog
 
 
